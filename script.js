@@ -2,40 +2,74 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 const form = document.getElementById("bookingForm");
 const status = document.getElementById("formStatus");
-const dateInput = form.elements.date;
+const dateInput = form?.elements.date;
+const submitButton = form?.querySelector('button[type="submit"]');
 
 // Prevent selecting dates in the past.
-const today = new Date();
-const isoToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-dateInput.min = isoToday;
+if (dateInput) {
+  const today = new Date();
+  const isoToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+    .toISOString()
+    .slice(0, 10);
+  dateInput.min = isoToday;
+}
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+function setStatus(message, type = "info") {
+  status.textContent = message;
+  status.dataset.type = type;
+}
 
-  const data = new FormData(form);
-  const subject = `Bokningsförfrågan – ${data.get("brand")} ${data.get("model")} – ${data.get("date")}`;
-  const body = [
-    "NY BOKNINGSFÖRFRÅGAN – ELITE KEY SOLUTIONS",
-    "",
-    `Namn: ${data.get("name")}`,
-    `Telefon: ${data.get("phone")}`,
-    `E-post: ${data.get("email") || "Ej angiven"}`,
-    `Bilmärke: ${data.get("brand")}`,
-    `Modell: ${data.get("model")}`,
-    `Årsmodell: ${data.get("year") || "Ej angiven"}`,
-    `Tjänst: ${data.get("service")}`,
-    `Önskat datum: ${data.get("date")}`,
-    `Önskad tid: ${data.get("time")}`,
-    `Mötesplats: ${data.get("location")}`,
-    "",
-    "Övrig information:",
-    data.get("message") || "Ingen extra information.",
-    "",
-    "OBS: Kunden har informerats om att tiden måste bekräftas manuellt."
-  ].join("\n");
+if (form) {
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-  const mailto = `mailto:keyelitesoultions@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = mailto;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
-  status.textContent = "Din e-postapp öppnas med bokningsförfrågan. Skicka meddelandet så kontaktar vi dig för bekräftelse.";
-});
+    // Honeypot: silently ignore obvious bot submissions.
+    if (form.elements._honey.value) return;
+
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+
+    payload._subject = `Bokningsförfrågan – ${payload.brand} ${payload.model} – ${payload.date}`;
+    payload._template = "table";
+    payload._captcha = "true";
+    payload._url = window.location.href;
+    payload._replyto = payload.email;
+    payload._honey = "";
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Skickar…";
+    setStatus("Skickar din bokningsförfrågan…", "loading");
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/keyelitesoultions@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || result.success === false) {
+        throw new Error(result.message || "Kunde inte skicka bokningen.");
+      }
+
+      form.reset();
+      if (dateInput) dateInput.min = new Date().toISOString().slice(0, 10);
+      setStatus("Tack! Din bokningsförfrågan är skickad. Vi kontaktar dig för att bekräfta tid och plats.", "success");
+    } catch (error) {
+      console.error(error);
+      setStatus("Det gick inte att skicka just nu. Kontrollera din internetanslutning eller ring 070-088 55 28 så hjälper vi dig direkt.", "error");
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Skicka bokningsförfrågan";
+    }
+  });
+}

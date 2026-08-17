@@ -101,3 +101,11 @@ footer{border-top:1px solid var(--line);padding:24px 0;color:#888;font-size:12px
   .section{padding:70px 0}
   .footer-inner{flex-direction:column}
 }
+
+
+/* Booking form enhancements */
+.hp-field{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
+.booking-form button:disabled{opacity:.65;cursor:wait;transform:none}
+.form-status[data-type="success"]{color:#7fe0a2}
+.form-status[data-type="error"]{color:#ff8b8b}
+.form-status[data-type="loading"]{color:var(--gold2)}

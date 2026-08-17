@@ -1,0 +1,10 @@
+{
+  "name": "Elite Key Solutions",
+  "short_name": "Elite Key Solutions",
+  "lang": "sv-SE",
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#0b0d10",
+  "background_color": "#0b0d10",
+  "icons": [{"src":"assets/logo.png","sizes":"512x512","type":"image/png"}]
+}

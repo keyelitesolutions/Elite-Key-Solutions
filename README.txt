@@ -14,7 +14,7 @@ Detta är en färdig, responsiv webbplats för Elite Key Solutions.
 - Mobilanpassning
 
 ## Bokningen
-Formuläret öppnar kundens e-postapp och skapar ett färdigt mejl till:
+Formuläret skickar bokningsförfrågningar via FormSubmit till:
 keyelitesoultions@gmail.com
 
 Detta innebär att bokningen inte bekräftas automatiskt. Du bekräftar själv tid och plats med kunden.
@@ -23,3 +23,5 @@ Detta innebär att bokningen inte bekräftas automatiskt. Du bekräftar själv t
 Ladda upp hela mappen till ett webbhotell eller publicera den via t.ex. Netlify, Vercel eller GitHub Pages.
 
 För ett riktigt bokningssystem där bokningar sparas online och du kan godkänna/avvisa tider behöver en backend eller bokningstjänst kopplas in.
+
+VIKTIGT: Första gången formuläret används skickar FormSubmit ett aktiveringsmejl till mottagaradressen. Bekräfta formuläret innan du börjar ta emot riktiga bokningar.

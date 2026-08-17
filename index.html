@@ -3,9 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Elite Key Solutions – programmering, kopiering och reservnycklar för alla bilmärken i Uddevalla med mobil service.">
+  <meta name="description" content="Elite Key Solutions erbjuder bilnycklar, nyckelprogrammering, nyckelkopiering och mobil service i Uddevalla. Boka en tid för din bilnyckel.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0b0d10">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Elite Key Solutions | Bilnycklar & programmering">
+  <meta property="og:description" content="Professionell hjälp med bilnycklar, programmering och kopiering i Uddevalla.">
+  <meta property="og:image" content="assets/hero-banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="manifest" href="site.webmanifest">
   <title>Elite Key Solutions | Bilnycklar & programmering</title>
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutomotiveBusiness",
+    "name": "Elite Key Solutions",
+    "description": "Bilnycklar, nyckelprogrammering, nyckelkopiering och mobil service.",
+    "telephone": "+46700885528",
+    "email": "keyelitesoultions@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Hagarnevägen 45",
+      "addressLocality": "Uddevalla",
+      "addressCountry": "SE"
+    },
+    "areaServed": "Uddevalla",
+    "url": "https://YOUR-GITHUB-USERNAME.github.io/elite-key-solutions/"
+  }
+  </script>
 </head>
 <body>
   <header class="site-header">
@@ -114,7 +141,8 @@
           </div>
         </div>
 
-        <form id="bookingForm" class="booking-form">
+        <form id="bookingForm" class="booking-form" novalidate>
+          <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-title">Bokningsförfrågan</div>
           <div class="form-grid">
             <label>För- och efternamn *
@@ -123,8 +151,8 @@
             <label>Telefonnummer *
               <input name="phone" type="tel" required placeholder="070-123 45 67">
             </label>
-            <label>E-post
-              <input name="email" type="email" placeholder="din@email.se">
+            <label>E-post *
+              <input name="email" type="email" required placeholder="din@email.se" autocomplete="email">
             </label>
             <label>Bilmärke *
               <input name="brand" required placeholder="T.ex. BMW">
@@ -164,7 +192,7 @@
             </label>
           </div>
           <label class="consent">
-            <input type="checkbox" required>
+            <input name="consent" type="checkbox" value="Ja" required>
             <span>Jag förstår att detta är en bokningsförfrågan och att tiden måste bekräftas av Elite Key Solutions.</span>
           </label>
           <button class="btn btn-gold submit-btn" type="submit">Skicka bokningsförfrågan</button>
@@ -193,6 +221,7 @@
     <div class="container footer-inner">
       <span>© <span id="year"></span> Elite Key Solutions</span>
       <span>Din bilnyckel. Vår lösning.</span>
+      <span><a href="integritetspolicy.html">Integritetspolicy</a> · <a href="bokningsvillkor.html">Bokningsvillkor</a></span>
     </div>
   </footer>
 
