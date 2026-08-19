@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Byt ut adressen nedan till din riktiga GitHub Pages-adress eller senare din .se-domän.
+Sitemap: https://YOUR-GITHUB-USERNAME.github.io/elite-key-solutions/sitemap.xml
